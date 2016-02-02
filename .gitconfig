@@ -1,0 +1,14 @@
+[user]
+	name = Apostolos Tovletoglou
+	email = tovletoglou@gmail.com
+[core]
+	editor = vim
+	autocrlf = input
+[color]
+	ui = true
+[help]
+	autocorrect = 1
+[alias]
+  l = log --graph --oneline --decorate
+	ll = log --graph --oneline --decorate --branches --tags
+	lll = log --graph --oneline --decorate --all
