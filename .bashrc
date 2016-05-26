@@ -15,7 +15,11 @@
 echo "System:          "$MSYSTEM
 echo "Console level:   "$SHLVL
 echo "Home path:       "$HOME
+echo "Shell:           "$SHELL
 echo "Bash:            "$BASH_VERSION
+echo "Terminal:        "$TERM
+# If you want to print all the variables for the open session:
+# printenv
 
 
 
