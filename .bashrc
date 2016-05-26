@@ -1,12 +1,21 @@
+# .bashrc is for non-login interactive shells.
+# Login shells source ~/.bash_profile
+
 # ~/.bashrc: executed by bash(1) for interactive shells.
 
 # If not running interactively, don't do anything.
 [[ "$-" != *i* ]] && return
 
+
+
+# -------------------------------------------------------------------
 # Source global definitions
+# -------------------------------------------------------------------
+
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
+
 
 
 # -------------------------------------------------------------------
@@ -27,7 +36,8 @@ fi
 
 # When changing directory small typos can be ignored by bash
 # for example, cd /vr/lgo/apaache would find /var/log/apache
-# shopt -s cdspell
+shopt -s cdspell
+
 
 
 # -------------------------------------------------------------------
@@ -50,6 +60,7 @@ fi
 # [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
 
+
 # -------------------------------------------------------------------
 # History Options
 # -------------------------------------------------------------------
@@ -66,9 +77,11 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 # export PROMPT_COMMAND="history -a"
 
 
+
 # -------------------------------------------------------------------
 # Umask
 # -------------------------------------------------------------------
+
 # /etc/profile sets 022, removing write perms to group + others.
 # Set a more restrictive umask: i.e. no exec perms for others:
 # umask 027
@@ -76,12 +89,15 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 # umask 077
 
 
+
 # -------------------------------------------------------------------
 # RVM
 # -------------------------------------------------------------------
 
 # Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
+if [ -s "$HOME/.rvm/bin" ] ; then
+  export PATH="$PATH:$HOME/.rvm/bin"
+fi
 
 # Load RVM if it is installed,
 #  first try to load  user install
@@ -92,13 +108,16 @@ elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
   . "/usr/local/rvm/scripts/rvm"
 fi
 
+
+
 # -------------------------------------------------------------------
 # Aliases
 # -------------------------------------------------------------------
 
 if [ -f ~/.bash_aliases ] ; then
-  source ~/.bash_aliases;
+  source ~/.bash_aliases
 fi
+
 
 
 # -------------------------------------------------------------------
@@ -107,7 +126,7 @@ fi
 
 # Allows you to see repository status in your prompt.
 if [ -f ~/.git_prompt ] ; then
-  source ~/.git_prompt;
+  source ~/.git_prompt
 fi
 
 # Add autocomplete functionality to git.
@@ -115,10 +134,12 @@ if [ -f ~/.git_completion ] ; then
   source ~/.git_completion
 fi
 
+
+
 # -------------------------------------------------------------------
 # Colours cheat sheet for prompt & ls
 # -------------------------------------------------------------------
-#
+
 # 0   = default colour
 # 1   = bold
 # 4   = underlined
@@ -153,12 +174,13 @@ fi
 # 104 = light blue background
 # 105 = light purple background
 # 106 = turquoise background
-#
+
+
 
 # -------------------------------------------------------------------
 # Prompt
 # -------------------------------------------------------------------
-#
+
 # \u                  = user
 # @                   = symbol
 # \h                  = host
@@ -171,17 +193,17 @@ fi
 # \e[32m\] = Green   for dev
 # \e[33m\] = Yellow  for pre-prod
 # \e[31m\] = Red     for prod
-#
 
-PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]$(tput sgr0)'
-# PS1='\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]\[$(tput sgr0)\]'
-# PS1='\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]\[$(tput sgr0)\]'
+PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]$(tput sgr0)'       # color for server: test
+# PS1='\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]\[$(tput sgr0)\]' # color for server: stage
+# PS1='\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]\[$(tput sgr0)\]' # color for server: production
+
 
 
 # -------------------------------------------------------------------
 # ls
 # -------------------------------------------------------------------
-#
+
 # di = directory
 # fi = file
 # ln = symbolic link
@@ -194,12 +216,6 @@ PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]$(tput sgr0
 # ex = file which is executable (ie. has 'x' set in permissions).
 # 
 # The *.rpm=90 parameter at the end tells ls to display any files ending in .rpm in the specified colour, in this case colour 90 (dark grey). This can be applied to any types of files (eg. you could use '*.png=35' to make jpeg files appear purple.) As many or as few parameters as you like can go into the LS_COLORS variable, as long as the parameters are separated by colons.
-# 
-# Using trial and error (and a little bash script I wrote... my first one ever! :) I worked out all the colour codes, at least my interpretation of them -
-# 
-# These can even be combined, so that a parameter like:
-# di=5;31;42
-#
 
 # Colour ls
 LS_COLORS='di=33:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=31:ex=35:*.rpm=90'
@@ -209,3 +225,88 @@ export LS_COLORS
 # This controls the way sorting on character level works — while the default
 # would be to sort dotfiles inline, this will make sort list dotfiles first.
 export LC_ALL="C"
+
+
+
+# -------------------------------------------------------------------
+# Drush (Drupal CLI tool)
+# -------------------------------------------------------------------
+
+# Include Drush bash customizations.
+if [ -f "/var/aegir/.drush/drush.bashrc" ] ; then
+  source /var/aegir/.drush/drush.bashrc
+fi
+
+# Include Drush completion.
+if [ -f "/var/aegir/.drush/drush.complete.sh" ] ; then
+  source /var/aegir/.drush/drush.complete.sh
+fi
+
+# Include Drush prompt customizations.
+#if [ -f "/var/aegir/.drush/drush.prompt.sh" ] ; then
+#  source /var/aegir/.drush/drush.prompt.sh
+#fi
+
+
+
+# -------------------------------------------------------------------
+# npm command completion script
+# -------------------------------------------------------------------
+
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local words cword
+    if type _get_comp_words_by_ref &>/dev/null; then
+      _get_comp_words_by_ref -n = -n @ -w words -i cword
+    else
+      cword="$COMP_CWORD"
+      words=("${COMP_WORDS[@]}")
+    fi
+
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${words[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -o default -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    local si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+
+
+
+# -------------------------------------------------------------------
+# end of .bashrc
+# -------------------------------------------------------------------
