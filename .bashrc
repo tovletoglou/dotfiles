@@ -194,9 +194,23 @@ fi
 # \e[33m\] = Yellow  for pre-prod
 # \e[31m\] = Red     for prod
 
-PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]$(tput sgr0)'       # color for server: test
-# PS1='\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]\[$(tput sgr0)\]' # color for server: stage
-# PS1='\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]\[$(tput sgr0)\]' # color for server: production
+# On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
+PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: test
+# PS1='\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: stage
+# PS1='\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: production
+
+# Alternative method getting the branch.
+#
+# git_get_branch() {
+#   branch="$( git branch 2>&1 | grep "^*" | sed 's/ //g;s/^*//g')"
+#   [[ ${#branch} > 0 ]] && echo "($branch)"
+# }
+#
+# Create new prompt:
+# PS1="\e[32m\]\u@\h \e[36m\]\w \e[32m\]\$(__git_ps1 ' { %s }')\nλ \e[0m\]$(tput sgr0)"
+#
+# Or update the existing one:
+# PS1="$PS1 \$(git_get_branch)"
 
 
 
@@ -214,7 +228,7 @@ PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")\nλ \e[0m\]$(tput sgr0
 # or = symbolic link pointing to a non-existent file (orphan)
 # mi = non-existent file pointed to by a symbolic link (visible when you type ls -l)
 # ex = file which is executable (ie. has 'x' set in permissions).
-# 
+#
 # The *.rpm=90 parameter at the end tells ls to display any files ending in .rpm in the specified colour, in this case colour 90 (dark grey). This can be applied to any types of files (eg. you could use '*.png=35' to make jpeg files appear purple.) As many or as few parameters as you like can go into the LS_COLORS variable, as long as the parameters are separated by colons.
 
 # Colour ls
