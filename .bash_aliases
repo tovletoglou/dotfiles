@@ -8,26 +8,16 @@
 # \rm will call the real rm not the alias.
 
 alias ..='cd ..'
-alias vi='vim'
-alias cp='cp -iv'
-alias rm='rm -i'
-alias mv='mv -iv'
-alias df='df -h'
-alias du='du -h'
-alias ll='ls -Alh --group-directories-first --color'
-alias ls='ls -F --color'
-alias dir='dir -F --color'
-alias free='free -mhto'
-alias grep='grep --color -in'
-alias drupalcs='phpcs --standard=/var/www/coder/coder_sniffer/Drupal/ --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt'
-
-# alias less='less -r'                          # raw control characters
-# alias whence='type -a'                        # where, of a sort
-# alias grep='grep --color'                     # show differences in colour
-# alias egrep='egrep --color=auto'              # show differences in colour
-# alias fgrep='fgrep --color=auto'              # show differences in colour
-# alias ls='ls -hF --color=tty'                 # classify files in colour
-# alias dir='ls --color=auto --format=vertical'
-# alias vdir='ls --color=auto --format=long'
-# alias la='ls -A'                              # all but . and ..
-# alias l='ls -CF'                              #
+alias vi='vim'                                       # link to vi to vim
+alias cp='cp -v'                                     # explain what is being done
+alias rm='rm -i'                                     # prompt before every removal
+alias mv='mv -v'                                     # explain what is being done
+alias df='df -h'                                     # print sizes in human readable format
+alias du='du -h'                                     # print sizes in human readable format
+alias ll='ls -Alh --group-directories-first --color' # print everything & as long list & print sizes in human readable format & print first the directories & add color to directories
+alias ls='ls -F --color'                             # append indicator (one of */=>@|) to entries & add color to directories
+alias dir='dir -F --color'                           # append indicator (one of */=>@|) to entries & add color to directories
+alias free='free -mhto'                              # show output in MB & human readable output & display total for RAM + swap & use old format
+alias grep='grep --color -in'                        # show differences in colour & ignore case distinctions & print line number
+alias egrep='egrep --color=auto'                     # show differences in colour
+alias fgrep='fgrep --color=auto'                     # show differences in colour
