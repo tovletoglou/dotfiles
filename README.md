@@ -15,6 +15,7 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
 - Fancy prompt `PS1`, showing `user@host working_directory git_status new_line` and updates the terminal's title bar with the working directory
 - Fancy `ls`
 - Configure `git` `.gitconfig`
+- Give a template for `.gitattributes`
 - Configure vim `.vimrc`
 
 ## How to use
