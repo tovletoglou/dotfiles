@@ -253,6 +253,7 @@ PS1='\e]0;\w\a\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\
 # Colour ls
 LS_COLORS='di=33:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=31:ex=35:*.rpm=90'
 export LS_COLORS
+#eval `dircolors ~/.dir_colors`
 
 # Order ls
 # This controls the way sorting on character level works — while the default

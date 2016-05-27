@@ -5,19 +5,20 @@
 *
 
 # We include explicitly the files we want.
-!.bash_aliases  
-!.bash_history  
-!.bash_logout   
-!.bash_profile  
-!.bashrc        
+!.bash_aliases
+!.bash_history
+!.bash_logout
+!.bash_profile
+!.bashrc
+!.dir_colors
 !.git_completion
-!.git_prompt    
-!.gitattributes 
-!.gitconfig     
-!.gitignore     
-!.viminfo       
-!.vimrc         
-!README.md      
+!.git_prompt
+!.gitattributes
+!.gitconfig
+!.gitignore
+!.viminfo
+!.vimrc
+!README.md
 
 # OS generated files
 .DS_Store
