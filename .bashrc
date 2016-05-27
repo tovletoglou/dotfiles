@@ -196,23 +196,27 @@ fi
 # Prompt
 # -------------------------------------------------------------------
 
-# \u                  = user
-# @                   = symbol
+# PS1 explained:
+# \e]0;\w\a           = add current path (working directory) to terminal's title (or tab) bar
+# \u                  = current user
+# @                   = just the '@' symbol, nothing fancy here
 # \h                  = host
 # \w                  = working directory
 # $(__git_ps1 "(%s)") = use the .bash_git to see repository status
 # \n                  = break line
-# λ                   = symbol
-# $(tput sgr0)        = prompt
-#
-# \e[32m\] = Green   for dev
-# \e[33m\] = Yellow  for pre-prod
-# \e[31m\] = Red     for prod
+# λ                   = just the 'λ' symbol, nothing fancy here
 
-# On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
-PS1='\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: test
-# PS1='\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: stage
-# PS1='\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: production
+# Colors:
+# \e[32m\]            = green   for dev
+# \e[33m\]            = yellow  for pre-prod
+# \e[31m\]            = red     for prod
+# \e[0m\]             = reset colors
+
+# FYI: On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
+
+PS1='\e]0;\w\a\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: test
+# PS1='\e]0;\w\a\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: stage
+# PS1='\e]0;\w\a\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: production
 
 # Alternative method getting the branch.
 #
