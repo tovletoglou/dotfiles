@@ -1,0 +1,32 @@
+# Ignore everything.
+# We do that because this project is located on the `$HOME` directory.
+# The `$HOME` or `~` is not suitable for a project home directory, but
+# unfortunately our (dotfiles) live here.
+*
+
+# We include explicitly the files we want.
+!.bash_aliases  
+!.bash_history  
+!.bash_logout   
+!.bash_profile  
+!.bashrc        
+!.git_completion
+!.git_prompt    
+!.gitattributes 
+!.gitconfig     
+!.gitignore     
+!.viminfo       
+!.vimrc         
+!README.md      
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# A nice collection of .gitignore files: https://github.com/github/gitignore

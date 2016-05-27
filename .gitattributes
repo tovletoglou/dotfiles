@@ -1,0 +1,92 @@
+# .gitattributes files are used by Git to determine the text and binaries files,
+# the EOL of the text files and the diff method.
+
+# Shorthand for `text` files.
+# - Treat them as text.
+# - Ensure no CRLF line-endings, neither on checkout nor on checkin.
+# - Detect whitespace errors.
+#   - Exposed by default in `git diff --color` on the CLI.
+#   - Validate with `git diff --check`.
+#   - Deny applying with `git apply --whitespace=error-all`.
+#   - Fix automatically with `git apply --whitespace=fix`.
+[attr]customtext text eol=lf whitespace=blank-at-eol,-blank-at-eof,-space-before-tab,tab-in-indent,tabwidth=2
+
+# Shorthand for binary files.
+# - Do not treat them as text.
+[attr]custombinary -diff
+
+# If you want to include binary diff in patches instead of "binary files differ." uncomment the following
+#[attr]custombinary -text diff
+
+# Auto-detect text files, ensure they use LF.
+*text=auto eol=lf
+
+# Text files
+*.bash_aliases   customtext
+*.bash_history   customtext
+*.bash_logout    customtext
+*.bash_profile   customtext
+*.bashrc         customtext
+*.bat            customtext
+*.bowerrc        customtext
+*.cmd            customtext
+*.css            customtext
+*.csv            customtext
+*.engine         customtext diff=php
+*.git_completion customtext
+*.git_prompt     customtext
+*.gitattributes  customtext
+*.gitconfig      customtext
+*.gitignore      customtext
+*.htc            customtext
+*.htm            customtext diff=html
+*.html           customtext diff=html
+*.inc            customtext diff=php
+*.info           customtext
+*.install        customtext diff=php
+*.js             customtext diff=java
+*.jshintrc       customtext
+*.json           customtext
+*.lock           customtext
+*.make           customtext
+*.markdown       customtext
+*.md             customtext
+*.module         customtext diff=php
+*.php            customtext diff=php
+*.po             customtext
+*.profile        customtext
+*.ps1            customtext
+*.rb             customtext diff=ruby
+*.rss2           customtext
+*.ruby-gemset    customtext
+*.ruby-version   customtext
+*.script         customtext
+*.scss           customtext
+*.sh             customtext
+*.sql            customtext
+*.test           customtext diff=php
+*.theme          customtext
+*.txt            customtext
+*.viminfo        customtext
+*.vimrc          customtext
+*.xml            customtext
+*.yml            customtext
+
+# Binary files
+*.7z             custombinary
+*.ai             custombinary
+*.dll            custombinary
+*.exe            custombinary
+*.exp            custombinary
+*.gif            custombinary
+*.gz             custombinary
+*.ico            custombinary
+*.jepg           custombinary
+*.jpg            custombinary
+*.lib            custombinary
+*.pdb            custombinary
+*.pfx            custombinary
+*.png            custombinary
+*.psd            custombinary
+*.sdf            custombinary
+*.snk            custombinary
