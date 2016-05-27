@@ -18,6 +18,8 @@
 !.gitignore
 !.viminfo
 !.vimrc
+!CHANGELOG
+!LICENSE
 !README.md
 
 # OS generated files
