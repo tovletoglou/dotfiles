@@ -212,7 +212,7 @@
   trim = !git reflog expire --expire=now --all && git gc --prune=now
 
   # Save a repo as a tarball
-    export = archive -o latest.tar.gz -9 --prefix=latest/
+  export = archive -o latest.tar.gz -9 --prefix=latest/
 
   # Unstage changes from the index
   unstage = reset HEAD --
