@@ -42,6 +42,7 @@
 	enabled = 1
 	autoupdate = 1
 
+# If you are working on git 1.x change `default = simple` to `default = current`
 [push]
 	default = simple
 
