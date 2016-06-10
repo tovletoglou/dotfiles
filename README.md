@@ -23,14 +23,31 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
 
         cd ~
         git clone git@gitlab.com:tovletoglou/dotfiles.git .
-        
+
     Or download the [zip](https://gitlab.com/tovletoglou/dotfiles/repository/archive.zip?ref=master) and extract the content in your home directory.
-   
+
     Or browse the [repository](https://gitlab.com/tovletoglou/dotfiles/tree/master) and download manually the files you want .
 
 - Edit `.gitconfig` and change the `[user]name` and `[user]email`.
 
 - Finally, restart your terminal.
+
+## File explanation
+| file            | description |
+| ---             | --- |
+| .bash_aliases   | Here we keep all the command abbreviations. By doing this we avoiding typing a long command sequence. |
+| .bash_history   | Store all the commands you execute in the shell. We can quickly recall commands and navigate the terminal. |
+| .bash_logout    | Execute commands when exiting the shell, like clear the terminal. |
+| .bash_profile   | Execute commands when login in the shell. |
+| .bashrc         | Execute commands when login in a sub-shell. This is the most important file because we call call it every time when we call the `.bash_profile`. It contains the calls to other files and functions and configure the shell. |
+| .dir_colors     | Create environmental variables for colouring the shell (currently we don't use it). |
+| .git_completion | Auto complete for git. |
+| .git_prompt     | If you browse a directory that is a git repository you can see the repository status in your prompt. |
+| .gitattributes  | Boiler plate for .gitattributes. It configures which files are text and which are not. |
+| .gitconfig      | Boiler plate for .gitconfig. It configures git and adds git alias. Git alias are different from bash aliases. |
+| .gitignore      | Boiler plate for .gitconfig. |
+| .viminfo        | Default viminfo file. Here vim will automatically store cache and buffers. |
+| .vimrc          | Configuration for vim text editor |
 
 ## Disclaimer
 This is code & configuration snippets collection from projects on GitHub. Many thanks to the OpenSource community.
