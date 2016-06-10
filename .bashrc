@@ -202,7 +202,7 @@ fi
 # @                   = just the '@' symbol, nothing fancy here
 # \h                  = host
 # \w                  = working directory
-# $(__git_ps1 "(%s)") = use the .bash_git to see repository status
+# $(__git_ps1 "(%s)") = use the .git_prompt to see repository status
 # \n                  = break line
 # λ                   = just the 'λ' symbol, nothing fancy here
 
