@@ -12,12 +12,16 @@
 # Print login info
 # -------------------------------------------------------------------
 
+LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
+
 echo "System:          "$MSYSTEM
 echo "Console level:   "$SHLVL
 echo "Home path:       "$HOME
 echo "Shell:           "$SHELL
 echo "Bash:            "$BASH_VERSION
 echo "Terminal:        "$TERM
+echo "Last login time: "$LAST_LOGIN
+
 # If you want to print all the variables for the open session:
 # printenv
 
