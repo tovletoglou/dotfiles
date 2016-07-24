@@ -11,8 +11,11 @@
 # -------------------------------------------------------------------
 # Print login info
 # -------------------------------------------------------------------
-
-LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
+if hash last 2>/dev/null; then
+        LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
+    else
+        LAST_LOGIN="Not supported"
+    fi
 
 echo "System:          "$MSYSTEM
 echo "Console level:   "$SHLVL
