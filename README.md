@@ -24,9 +24,9 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
         cd ~
         git clone git@gitlab.com:tovletoglou/dotfiles.git .
 
-    Or download the [zip](https://gitlab.com/tovletoglou/dotfiles/repository/archive.zip?ref=master) and extract the content in your home directory.
+    Or download the [zip](https://github.com/tovletoglou/dotfiles/repository/archive.zip?ref=master) and extract the content in your home directory.
 
-    Or browse the [repository](https://gitlab.com/tovletoglou/dotfiles/tree/master) and download manually the files you want .
+    Or browse the [repository](https://github.com/tovletoglou/dotfiles/tree/master) and download manually the files you want .
 
 - Edit `.gitconfig` and change the `[user]name` and `[user]email`.
 
@@ -50,4 +50,4 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
 | .vimrc          | Configuration for vim text editor |
 
 ## Disclaimer
-This is code & configuration snippets collection from projects on GitHub. Many thanks to the OpenSource community.
+This is code & configuration snippets collection from various projects on GitHub. Many thanks to the OpenSource community.
