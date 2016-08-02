@@ -291,6 +291,18 @@ fi
 
 
 # -------------------------------------------------------------------
+# Ansible
+# -------------------------------------------------------------------
+
+# Register Ansible variables on .bashrc and save the output on a file (we do
+# that because some terminal emulators does not support the long output)
+if [ -f "/usr/local/src/ansible/hacking/env-setup" ] ; then
+  source /usr/local/src/ansible/hacking/env-setup &> /usr/local/src/ansible/ansible.login
+fi
+
+
+
+# -------------------------------------------------------------------
 # npm command completion script
 # -------------------------------------------------------------------
 
