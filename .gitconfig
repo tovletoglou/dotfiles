@@ -91,9 +91,9 @@
 
   g = grep -p
 
-  l = log --graph --oneline --decorate
-  ll = log --graph --oneline --decorate --branches --tags
-  lll = log --graph --oneline --decorate --all
+  l = log --graph --oneline --decorate --all
+  ll = "!git_print_log(){ git log --graph --oneline --decorate --pretty='\t%Cgreen%h%Creset\t%s\t%Cblue%ae%Creset' | column -t -s $'\t' -o '' | less -r; };git_print_log"
+  lll = log --graph --oneline --decorate --pretty=fuller
 
   ls = ls-files
   lsf = "!git ls-files | grep -i"
