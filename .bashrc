@@ -309,22 +309,19 @@ enable_npm_customizations
 if hash last 2>/dev/null; then
   LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
 else
-  LAST_LOGIN="`last` command is not supported"
+  LAST_LOGIN=""
 fi
 
 # The $MSYSTEM variable exist only on Windows bash (MINGW32, MSYS2)
-if [ -z "$MSYSTEM" ]; then
-  MSYSTEM="MSYSTEM is not defined"
-fi
-
-echo "System:          "$MSYSTEM
+if [ ! -z "$MSYSTEM" ] ; then echo "System:          "$MSYSTEM; fi
 echo "Host:            "$HOSTNAME
 echo "Console level:   "$SHLVL
 echo "Home path:       "$HOME
 echo "Shell:           "$SHELL
 echo "Bash:            "$BASH_VERSION
 echo "Terminal:        "$TERM
-echo "Last login time: "$LAST_LOGIN
+# 'last' command is not supported on  Windows bash (MINGW32, MSYS2)
+if [ -z "$MSYSTEM" ] ; then echo "Last login time: "$LAST_LOGIN; fi
 
 # If you want to print all the variables for the open session:
 # printenv
