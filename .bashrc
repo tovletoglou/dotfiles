@@ -156,6 +156,12 @@ if [ -f ~/.git_completion ] ; then
   source ~/.git_completion
 fi
 
+# Add `git subrepo` command
+if [ -f ~/dotfiles/git-subrepo/.rc ] ; then
+  echo "Add git subrepo command"
+  source ~/dotfiles/git-subrepo/.rc
+fi
+
 
 
 # -------------------------------------------------------------------
