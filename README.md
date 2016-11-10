@@ -2,10 +2,9 @@
 
 This is my home folder configuration (dot)files for `bash`, `git`, etc.
 
-It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin, MSYS2).
+It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, MINGW32, MSYS2).
 
-## What id does
-- Configure bash (really...)
+## What it does
 - Print login info
 - Ignore typos then change directory
 - Keep `.bash_history` fairly clean, without noise
@@ -15,6 +14,7 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
 - Fancy prompt `PS1`, showing `user@host working_directory git_status new_line` and updates the terminal's title bar with the working directory
 - Fancy `ls`
 - Configure `git` `.gitconfig`
+- Add extra command `git subrepo`
 - Give a template for `.gitattributes`
 - Configure vim `.vimrc`
 
@@ -32,9 +32,12 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
 
 - Finally, restart your terminal.
 
+Or you can use this [Ansible](https://www.ansible.com/) role: [Ansible Role: dot-files](https://github.com/tovletoglou/ansible-role-dotfiles)
+
 ## File explanation
 | file            | description |
 | ---             | --- |
+| git-subrepo     | It's an extra command for git in order to manage sub-projects, something like git-submodule and git-subtree. For more information: [git-subrepo](https://github.com/ingydotnet/git-subrepo)
 | .bash_aliases   | Here we keep all the command abbreviations. By doing this we avoiding typing a long command sequence. |
 | .bash_history   | Store all the commands you execute in the shell. We can quickly recall commands and navigate the terminal. |
 | .bash_logout    | Execute commands when exiting the shell, like clear the terminal. |
@@ -50,4 +53,4 @@ It works on Linux and Windows systems, (tested on Centos, RedHat, Ubuntu, Cygwin
 | .vimrc          | Configuration for vim text editor |
 
 ## Disclaimer
-This is code & configuration snippets collection from various projects on GitHub. Many thanks to the OpenSource community.
+This is code & configuration snippets collection from various projects on GitHub. Many thanks OpenSource community.

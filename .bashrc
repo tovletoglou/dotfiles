@@ -7,27 +7,13 @@
 [[ "$-" != *i* ]] && return
 
 
-
 # -------------------------------------------------------------------
-# Print login info
+# Define dotfiles location
 # -------------------------------------------------------------------
-if hash last 2>/dev/null; then
-        LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
-    else
-        LAST_LOGIN="Not supported"
-    fi
-
-echo "System:          "$MSYSTEM
-echo "Console level:   "$SHLVL
-echo "Home path:       "$HOME
-echo "Shell:           "$SHELL
-echo "Bash:            "$BASH_VERSION
-echo "Terminal:        "$TERM
-echo "Last login time: "$LAST_LOGIN
-
-# If you want to print all the variables for the open session:
-# printenv
-
+if [ -f $HOME/.bashrc ]; then
+  BASHRC_FILE="$(readlink -f $HOME/.bashrc)"
+  BASHRC_LOCATION="$(dirname $BASHRC_FILE)"
+fi
 
 
 # -------------------------------------------------------------------
@@ -37,7 +23,6 @@ echo "Last login time: "$LAST_LOGIN
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
-
 
 
 # -------------------------------------------------------------------
@@ -61,7 +46,6 @@ fi
 shopt -s cdspell
 
 
-
 # -------------------------------------------------------------------
 # Completion options
 # -------------------------------------------------------------------
@@ -82,7 +66,6 @@ shopt -s cdspell
 # [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
 
-
 # -------------------------------------------------------------------
 # History Options
 # -------------------------------------------------------------------
@@ -99,7 +82,6 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 # export PROMPT_COMMAND="history -a"
 
 
-
 # -------------------------------------------------------------------
 # Umask
 # -------------------------------------------------------------------
@@ -109,59 +91,6 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 # umask 027
 # Paranoid: neither group nor others have any perms:
 # umask 077
-
-
-
-# -------------------------------------------------------------------
-# RVM
-# -------------------------------------------------------------------
-
-# Add RVM to PATH for scripting
-if [ -s "$HOME/.rvm/bin" ] ; then
-  export PATH="$PATH:$HOME/.rvm/bin"
-fi
-
-# Load RVM if it is installed,
-#  first try to load  user install
-#  then try to load root install, if user install is not there.
-if [ -s "$HOME/.rvm/scripts/rvm" ] ; then
-  . "$HOME/.rvm/scripts/rvm"
-elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
-  . "/usr/local/rvm/scripts/rvm"
-fi
-
-
-
-# -------------------------------------------------------------------
-# Aliases
-# -------------------------------------------------------------------
-
-if [ -f ~/.bash_aliases ] ; then
-  source ~/.bash_aliases
-fi
-
-
-
-# -------------------------------------------------------------------
-# GIT
-# -------------------------------------------------------------------
-
-# Allows you to see repository status in your prompt.
-if [ -f ~/.git_prompt ] ; then
-  source ~/.git_prompt
-fi
-
-# Add autocomplete functionality to git.
-if [ -f ~/.git_completion ] ; then
-  source ~/.git_completion
-fi
-
-# Add `git subrepo` command
-if [ -f ~/dotfiles/git-subrepo/.rc ] ; then
-  echo "Add git subrepo command"
-  source ~/dotfiles/git-subrepo/.rc
-fi
-
 
 
 # -------------------------------------------------------------------
@@ -245,7 +174,6 @@ PS1='\e]0;\w\a\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\
 # PS1="$PS1 \$(git_get_branch)"
 
 
-
 # -------------------------------------------------------------------
 # ls
 # -------------------------------------------------------------------
@@ -274,6 +202,53 @@ export LS_COLORS
 export LC_ALL="C"
 
 
+# -------------------------------------------------------------------
+# Aliases
+# -------------------------------------------------------------------
+
+if [ -f "$BASHRC_LOCATION~/bash_aliases.sh" ] ; then
+  source "$BASHRC_LOCATION~/bash_aliases.sh"
+fi
+
+
+# -------------------------------------------------------------------
+# RVM
+# -------------------------------------------------------------------
+
+# Add RVM to PATH for scripting
+if [ -s "$HOME/.rvm/bin" ] ; then
+  export PATH="$PATH:$HOME/.rvm/bin"
+fi
+
+# Load RVM if it is installed,
+#  first try to load  user install
+#  then try to load root install, if user install is not there.
+if [ -s "$HOME/.rvm/scripts/rvm" ] ; then
+  . "$HOME/.rvm/scripts/rvm"
+elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
+  . "/usr/local/rvm/scripts/rvm"
+fi
+
+
+# -------------------------------------------------------------------
+# GIT
+# -------------------------------------------------------------------
+
+# Allows you to see repository status in your prompt.
+if [ -f "$BASHRC_LOCATION/git_prompt.sh" ] ; then
+  source "$BASHRC_LOCATION/git_prompt.sh"
+fi
+
+# Add autocomplete functionality to git.
+if [ -f "$BASHRC_LOCATION/git_completion.sh" ] ; then
+  source "$BASHRC_LOCATION/git_completion.sh"
+fi
+
+# Add `git subrepo` command
+if [ -f "$BASHRC_LOCATION/git-subrepo/.rc" ] ; then
+  source "$BASHRC_LOCATION/git-subrepo/.rc"
+fi
+
 
 # -------------------------------------------------------------------
 # Drush (Drupal CLI tool)
@@ -295,17 +270,16 @@ fi
 #fi
 
 
-
 # -------------------------------------------------------------------
 # Ansible
 # -------------------------------------------------------------------
 
+# If ansible is installed manually:
 # Register Ansible variables on .bashrc and save the output on a file (we do
 # that because some terminal emulators does not support the long output)
 if [ -f "/usr/local/src/ansible/hacking/env-setup" ] ; then
   source /usr/local/src/ansible/hacking/env-setup &> /usr/local/src/ansible/ansible.login
 fi
-
 
 
 # -------------------------------------------------------------------
@@ -365,7 +339,22 @@ elif type compctl &>/dev/null; then
 fi
 
 
+# -------------------------------------------------------------------
+# Print login info
+# -------------------------------------------------------------------
+if hash last 2>/dev/null; then
+        LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
+    else
+        LAST_LOGIN="Not supported"
+    fi
 
-# -------------------------------------------------------------------
-# end of .bashrc
-# -------------------------------------------------------------------
+echo "System:          "$MSYSTEM
+echo "Console level:   "$SHLVL
+echo "Home path:       "$HOME
+echo "Shell:           "$SHELL
+echo "Bash:            "$BASH_VERSION
+echo "Terminal:        "$TERM
+echo "Last login time: "$LAST_LOGIN
+
+# If you want to print all the variables for the open session:
+# printenv
