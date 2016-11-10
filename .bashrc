@@ -10,7 +10,7 @@
 # -------------------------------------------------------------------
 # Define dotfiles location
 # -------------------------------------------------------------------
-if [ -f $HOME/.bashrc ]; then
+if [ -f "$HOME/.bashrc" ]; then
   BASHRC_FILE="$(readlink -f $HOME/.bashrc)"
   BASHRC_LOCATION="$(dirname $BASHRC_FILE)"
 fi
@@ -254,20 +254,27 @@ fi
 # Drush (Drupal CLI tool)
 # -------------------------------------------------------------------
 
-# Include Drush bash customizations.
-if [ -f "/var/aegir/.drush/drush.bashrc" ] ; then
-  source /var/aegir/.drush/drush.bashrc
-fi
+enable_drush_customizations () {
+  if hash drush 2>/dev/null; then
+    # Include Drush bash customizations.
+    if [ -f "$BASHRC_LOCATION/drush/drush.bashrc" ] ; then
+      source "$BASHRC_LOCATION/drush/drush.bashrc"
+    fi
 
-# Include Drush completion.
-if [ -f "/var/aegir/.drush/drush.complete.sh" ] ; then
-  source /var/aegir/.drush/drush.complete.sh
-fi
+    # Include Drush completion.
+    if [ -f "$BASHRC_LOCATION/drush/drush.complete.sh" ] ; then
+      source "$BASHRC_LOCATION/drush/drush.complete.sh"
+    fi
 
-# Include Drush prompt customizations.
-#if [ -f "/var/aegir/.drush/drush.prompt.sh" ] ; then
-#  source /var/aegir/.drush/drush.prompt.sh
-#fi
+    # Include Drush prompt customizations.
+    #if [ -f "$BASHRC_LOCATION/drush/drush.prompt.sh" ] ; then
+    #  source "$BASHRC_LOCATION/drush/drush.prompt.sh"
+    #fi
+  fi
+}
+enable_drush_customizations
+
+
 
 
 # -------------------------------------------------------------------
