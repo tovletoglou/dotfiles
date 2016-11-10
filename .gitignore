@@ -1,27 +1,3 @@
-# Ignore everything.
-# We do that because this project is located on the `$HOME` directory.
-# The `$HOME` or `~` is not suitable for a project home directory, but
-# unfortunately our (dotfiles) live here.
-*
-
-# We include explicitly the files we want.
-!.bash_aliases
-!.bash_history
-!.bash_logout
-!.bash_profile
-!.bashrc
-!.dir_colors
-!.git_completion
-!.git_prompt
-!.gitattributes
-!.gitconfig
-!.gitignore
-!.viminfo
-!.vimrc
-!CHANGELOG
-!LICENSE
-!README.md
-
 # OS generated files
 .DS_Store
 .DS_Store?
