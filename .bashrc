@@ -235,18 +235,18 @@ fi
 # ------------------------------------------------------------------------------
 
 # Allows you to see repository status in your prompt.
-if [ -f "$BASHRC_LOCATION/git_prompt.sh" ] ; then
-  source "$BASHRC_LOCATION/git_prompt.sh"
+if [ -f "$BASHRC_LOCATION/git/git_prompt.sh" ] ; then
+  source "$BASHRC_LOCATION/git/git_prompt.sh"
 fi
 
 # Add autocomplete functionality to git.
-if [ -f "$BASHRC_LOCATION/git_completion.sh" ] ; then
-  source "$BASHRC_LOCATION/git_completion.sh"
+if [ -f "$BASHRC_LOCATION/git/git_completion.sh" ] ; then
+  source "$BASHRC_LOCATION/git/git_completion.sh"
 fi
 
 # Add `git subrepo` command
-if [ -f "$BASHRC_LOCATION/git-subrepo/.rc" ] ; then
-  source "$BASHRC_LOCATION/git-subrepo/.rc"
+if [ -f "$BASHRC_LOCATION/git/git-subrepo/.rc" ] ; then
+  source "$BASHRC_LOCATION/git/git-subrepo/.rc"
 fi
 
 
