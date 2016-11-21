@@ -206,8 +206,8 @@ export LC_ALL="C"
 # Aliases
 # ------------------------------------------------------------------------------
 
-if [ -f "$BASHRC_LOCATION~/bash_aliases.sh" ] ; then
-  source "$BASHRC_LOCATION~/bash_aliases.sh"
+if [ -f "$BASHRC_LOCATION/bash_aliases.sh" ] ; then
+  source "$BASHRC_LOCATION/bash_aliases.sh"
 fi
 
 
