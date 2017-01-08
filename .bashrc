@@ -314,6 +314,7 @@ fi
 
 # The $MSYSTEM variable exist only on Windows bash (MINGW32, MSYS2)
 if [ ! -z "$MSYSTEM" ] ; then echo "System:          "$MSYSTEM; fi
+echo "OS Type:         "$OSTYPE
 echo "Host:            "$HOSTNAME
 echo "Console level:   "$SHLVL
 echo "Home path:       "$HOME
