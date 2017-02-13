@@ -156,7 +156,8 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 
 # FYI: On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
 
-PS1='\e]0;\w\a\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: test
+PS1='\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\nλ '
+#PS1='\e]0;\w\a\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for
 # PS1='\e]0;\w\a\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: stage
 # PS1='\e]0;\w\a\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: production
 
