@@ -5,6 +5,9 @@
 [core]
   editor = vim
   autocrlf = input
+  # If false, the executable bit differences between the index and the working
+  # copy are ignored; useful on broken file-systems like FAT.
+  fileMode = false
 
 [diff]
   tool = vimdiff
@@ -46,7 +49,6 @@
 [push]
   default = simple
 
-# We don't use every alias of this list, but we keep them as git cheat sheet.
 [alias]
   a = add --all
   ai = add -i
