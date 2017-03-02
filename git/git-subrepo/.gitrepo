@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/ingydotnet/git-subrepo.git
 	branch = master
-	commit = 988f8c834370ac4b807f5561a99f176b03c5e1d2
-	parent = be8a24ce52f24dde510d495eb779decca403af0a
+	commit = a7ee886e0260e847dea6240eaa6278fb2f23be8a
+	parent = 09f102073f71dc633f8d6a6b29db3188adae5391
 	cmdver = 0.3.0
