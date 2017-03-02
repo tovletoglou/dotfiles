@@ -250,6 +250,10 @@ if [ -f "$BASHRC_LOCATION/git/git-subrepo/.rc" ] ; then
   source "$BASHRC_LOCATION/git/git-subrepo/.rc"
 fi
 
+# Add `merge-git-to-git` command
+if [ -f "$BASHRC_LOCATION/git/migrate-git-to-git.sh" ] ; then
+  source "$BASHRC_LOCATION/git/migrate-git-to-git.sh"
+fi
 
 # ------------------------------------------------------------------------------
 # Drush
