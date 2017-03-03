@@ -1,20 +1,9 @@
-# .bashrc is for non-login interactive shells.
-# Login shells source ~/.bash_profile
-
-# ~/.bashrc: executed by bash(1) for interactive shells.
+# ------------------------------------------------------------------------------
+# Check interactive shells
+# ------------------------------------------------------------------------------
 
 # If not running interactively, don't do anything.
 [[ "$-" != *i* ]] && return
-
-
-# ------------------------------------------------------------------------------
-# Define dotfiles location
-# ------------------------------------------------------------------------------
-
-if [ -f "$HOME/.bashrc" ]; then
-  BASHRC_FILE="$(readlink -f $HOME/.bashrc)"
-  BASHRC_LOCATION="$(dirname $BASHRC_FILE)"
-fi
 
 
 # ------------------------------------------------------------------------------
@@ -25,6 +14,15 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+
+# ------------------------------------------------------------------------------
+# Define dotfiles location
+# ------------------------------------------------------------------------------
+
+if [ -f "$HOME/.bashrc" ]; then
+  BASHRC_FILE="$(readlink -f $HOME/.bashrc)"
+  BASHRC_LOCATION="$(dirname $BASHRC_FILE)"
+fi
 
 # ------------------------------------------------------------------------------
 # Shell Options
@@ -62,10 +60,6 @@ shopt -s cdspell
 # Define to avoid flattening internal contents of tar files.
 # COMP_TAR_INTERNAL_PATHS=1
 
-# Uncomment to turn on programmable completion enhancements.
-# Any completions you add in ~/.bash_completion are sourced last.
-# [[ -f /etc/bash_completion ]] && . /etc/bash_completion
-
 
 # ------------------------------------------------------------------------------
 # History Options
@@ -77,7 +71,7 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # Ignore some controlling instructions
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
 # The '&' is a special pattern which suppresses duplicate entries.
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:cd'
 
 # Whenever displaying the prompt, write the previous line to disk.
 # export PROMPT_COMMAND="history -a"
@@ -95,7 +89,7 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 
 
 # ------------------------------------------------------------------------------
-# Colours cheat sheet for prompt & ls
+# Colour cheat sheet for prompt & ls
 # ------------------------------------------------------------------------------
 
 # 0   = default colour
@@ -138,28 +132,25 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll'
 # Prompt
 # ------------------------------------------------------------------------------
 
-# PS1 explained:
-# \e]0;\w\a           = add current path (working directory) to terminal's title (or tab) bar
+# PS1 explained ----------------------------------
+# \e]0;\w\a           = add current path (working directory) to terminal's title (or tab) bar (TODO: check if it is working)
 # \u                  = current user
 # @                   = just the '@' symbol, nothing fancy here
 # \h                  = host
 # \w                  = working directory
-# $(__git_ps1 "(%s)") = use the .git_prompt to see repository status
+# $(__git_ps1 "(%s)") = use the 'git.prompt.sh' to check repository status
 # \n                  = break line
-# λ                   = just the 'λ' symbol, nothing fancy here
+# λ                   = just the 'λ' symbol
 
-# Colors:
-# \e[32m\]            = green   for dev
-# \e[33m\]            = yellow  for pre-prod
-# \e[31m\]            = red     for prod
-# \e[0m\]             = reset colors
+# Colors -----------------------------------------
+# \e[32m              = green   for dev
+# \e[33m              = yellow  for pre-prod
+# \e[31m              = red     for prod
+# \e[0m               = reset colors
 
 # FYI: On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
 
 PS1='\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\nλ '
-#PS1='\e]0;\w\a\e[32m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for
-# PS1='\e]0;\w\a\e[33m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: stage
-# PS1='\e]0;\w\a\e[31m\]\u@\h \e[36m\]\w \e[32m\]$(__git_ps1 "(%s)")'$'\nλ \e[0m\]'  # color for server: production
 
 # Alternative method getting the branch.
 #
@@ -195,7 +186,6 @@ PS1='\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\nλ '
 # Colour ls
 LS_COLORS='di=33:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=31:ex=35:*.rpm=90'
 export LS_COLORS
-#eval `dircolors ~/.dir_colors`
 
 # Order ls
 # This controls the way sorting on character level works — while the default
@@ -207,53 +197,60 @@ export LC_ALL="C"
 # Aliases
 # ------------------------------------------------------------------------------
 
-if [ -f "$BASHRC_LOCATION/bash_aliases.sh" ] ; then
-  source "$BASHRC_LOCATION/bash_aliases.sh"
+if [ -f "$BASHRC_LOCATION/alias/bash.alias.sh" ] ; then
+  source "$BASHRC_LOCATION/alias/bash.alias.sh"
 fi
 
 
 # ------------------------------------------------------------------------------
 # RVM
 # ------------------------------------------------------------------------------
+enable_rvm_customizations () {
+  if hash rvm 2>/dev/null; then
+    # Add RVM to PATH for scripting
+    if [ -s "$HOME/.rvm/bin" ] ; then
+      export PATH="$PATH:$HOME/.rvm/bin"
+    fi
 
-# Add RVM to PATH for scripting
-if [ -s "$HOME/.rvm/bin" ] ; then
-  export PATH="$PATH:$HOME/.rvm/bin"
-fi
-
-# Load RVM if it is installed,
-#  first try to load  user install
-#  then try to load root install, if user install is not there.
-if [ -s "$HOME/.rvm/scripts/rvm" ] ; then
-  . "$HOME/.rvm/scripts/rvm"
-elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
-  . "/usr/local/rvm/scripts/rvm"
-fi
-
+    # Load RVM if it is installed, first try to load user install then try to load
+    # root install, if user install is not there.
+    if [ -s "$HOME/.rvm/scripts/rvm" ] ; then
+      . "$HOME/.rvm/scripts/rvm"
+      elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
+      . "/usr/local/rvm/scripts/rvm"
+    fi
+  fi
+}
+enable_rvm_customizations
 
 # ------------------------------------------------------------------------------
 # GIT
 # ------------------------------------------------------------------------------
+enable_git_customizations () {
+  if hash git 2>/dev/null; then
+    # Allows you to see repository status in your prompt.
+    if [ -f "$BASHRC_LOCATION/git/git.prompt.sh" ] ; then
+      source "$BASHRC_LOCATION/git/git.prompt.sh"
+    fi
 
-# Allows you to see repository status in your prompt.
-if [ -f "$BASHRC_LOCATION/git/git_prompt.sh" ] ; then
-  source "$BASHRC_LOCATION/git/git_prompt.sh"
-fi
+    # Add autocomplete functionality to git.
+    if [ -f "$BASHRC_LOCATION/git/git.completion.sh" ] ; then
+      source "$BASHRC_LOCATION/git/git.completion.sh"
+    fi
 
-# Add autocomplete functionality to git.
-if [ -f "$BASHRC_LOCATION/git/git_completion.sh" ] ; then
-  source "$BASHRC_LOCATION/git/git_completion.sh"
-fi
+    # Add `git subrepo` command
+    if [ -f "$BASHRC_LOCATION/git/git-subrepo/.rc" ] ; then
+      source "$BASHRC_LOCATION/git/git-subrepo/.rc"
+    fi
 
-# Add `git subrepo` command
-if [ -f "$BASHRC_LOCATION/git/git-subrepo/.rc" ] ; then
-  source "$BASHRC_LOCATION/git/git-subrepo/.rc"
-fi
+    # Add `merge-git-to-git` command
+    if [ -f "$BASHRC_LOCATION/git/migrate-git-to-git.sh" ] ; then
+      source "$BASHRC_LOCATION/git/migrate-git-to-git.sh"
+    fi
+  fi
+}
+enable_git_customizations
 
-# Add `merge-git-to-git` command
-if [ -f "$BASHRC_LOCATION/git/migrate-git-to-git.sh" ] ; then
-  source "$BASHRC_LOCATION/git/migrate-git-to-git.sh"
-fi
 
 # ------------------------------------------------------------------------------
 # Drush
@@ -267,29 +264,17 @@ enable_drush_customizations () {
     fi
 
     # Include Drush completion.
-    if [ -f "$BASHRC_LOCATION/drush/drush.complete.sh" ] ; then
-      source "$BASHRC_LOCATION/drush/drush.complete.sh"
+    if [ -f "$BASHRC_LOCATION/drush/drush.completion.sh" ] ; then
+      source "$BASHRC_LOCATION/drush/drush.completion.sh"
     fi
 
     # Include Drush prompt customizations.
-    #if [ -f "$BASHRC_LOCATION/drush/drush.prompt.sh" ] ; then
+    # if [ -f "$BASHRC_LOCATION/drush/drush.prompt.sh" ] ; then
     #  source "$BASHRC_LOCATION/drush/drush.prompt.sh"
-    #fi
+    # fi
   fi
 }
 enable_drush_customizations
-
-
-# ------------------------------------------------------------------------------
-# Ansible
-# ------------------------------------------------------------------------------
-
-# If ansible is installed manually:
-# Register Ansible variables on .bashrc and save the output on a file (we do
-# that because some terminal emulators does not support the long output)
-if [ -f "/usr/local/src/ansible/hacking/env-setup" ] ; then
-  source /usr/local/src/ansible/hacking/env-setup &> /usr/local/src/ansible/ansible.login
-fi
 
 
 # ------------------------------------------------------------------------------
@@ -299,8 +284,8 @@ fi
 enable_npm_customizations () {
   if hash npm 2>/dev/null; then
     # Include npm completion.
-    if [ -f "$BASHRC_LOCATION/npm/npm.complete.sh" ] ; then
-      source "$BASHRC_LOCATION/npm/npm.complete.sh"
+    if [ -f "$BASHRC_LOCATION/npm/npm.completion.sh" ] ; then
+      source "$BASHRC_LOCATION/npm/npm.completion.sh"
     fi
   fi
 }
@@ -310,16 +295,22 @@ enable_npm_customizations
 # ------------------------------------------------------------------------------
 # Vagrant auto complete
 # ------------------------------------------------------------------------------
-
-if [ -f "$BASHRC_LOCATION/vagrant/vagrant_bash_completion" ] ; then
-  source "$BASHRC_LOCATION/vagrant/vagrant_bash_completion"
-fi
+enable_vagrant_customizations () {
+  if hash vagrant 2>/dev/null; then
+    # Include vagrant completion.
+    if [ -f "$BASHRC_LOCATION/vagrant/vagrant.completion.sh" ] ; then
+      source "$BASHRC_LOCATION/vagrant/vagrant.completion.sh"
+    fi
+  fi
+}
+enable_vagrant_customizations
 
 
 # ------------------------------------------------------------------------------
-# Print login info
+# Print welcome message
 # ------------------------------------------------------------------------------
 
+# 'last' command is not supported on Windows bash (MINGW32, MSYS2)
 if hash last 2>/dev/null; then
   LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
 else
@@ -327,16 +318,15 @@ else
 fi
 
 # The $MSYSTEM variable exist only on Windows bash (MINGW32, MSYS2)
-if [ ! -z "$MSYSTEM" ] ; then echo "System:          "$MSYSTEM; fi
-echo "OS Type:         "$OSTYPE
-echo "Host:            "$HOSTNAME
-echo "Console level:   "$SHLVL
-echo "Home path:       "$HOME
-echo "Shell:           "$SHELL
-echo "Bash:            "$BASH_VERSION
-echo "Terminal:        "$TERM
-# 'last' command is not supported on  Windows bash (MINGW32, MSYS2)
-if [ -z "$MSYSTEM" ] ; then echo "Last login time: "$LAST_LOGIN; fi
+if [ ! -z "$MSYSTEM" ]      ; then echo "System          "$MSYSTEM      ; fi
+if [ ! -z "$OSTYPE" ]       ; then echo "OS Type         "$OSTYPE       ; fi
+if [ ! -z "$HOSTNAME" ]     ; then echo "Host            "$HOSTNAME     ; fi
+if [ ! -z "$SHLVL" ]        ; then echo "Console level   "$SHLVL        ; fi
+if [ ! -z "$HOME" ]         ; then echo "Home path       "$HOME         ; fi
+if [ ! -z "$SHELL" ]        ; then echo "Shell           "$SHELL        ; fi
+if [ ! -z "$BASH_VERSION" ] ; then echo "Bash            "$BASH_VERSION ; fi
+if [ ! -z "$TERM" ]         ; then echo "Terminal        "$TERM         ; fi
+if [ ! -z "$LAST_LOGIN" ]   ; then echo "Last login time "$LAST_LOGIN   ; fi
 
 # If you want to print all the variables for the open session:
 # printenv
