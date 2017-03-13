@@ -9,7 +9,6 @@
 # ------------------------------------------------------------------------------
 # Source global definitions
 # ------------------------------------------------------------------------------
-
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
@@ -18,7 +17,6 @@ fi
 # ------------------------------------------------------------------------------
 # Define dotfiles location
 # ------------------------------------------------------------------------------
-
 if [ -f "$HOME/.bashrc" ]; then
   BASHRC_FILE="$(readlink -f $HOME/.bashrc)"
   BASHRC_LOCATION="$(dirname $BASHRC_FILE)"
@@ -196,7 +194,6 @@ export LC_ALL="C"
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
-
 if [ -f "$BASHRC_LOCATION/alias/bash.alias.sh" ] ; then
   source "$BASHRC_LOCATION/alias/bash.alias.sh"
 fi
@@ -255,7 +252,6 @@ enable_git_customizations
 # ------------------------------------------------------------------------------
 # Drush
 # ------------------------------------------------------------------------------
-
 enable_drush_customizations () {
   if hash drush 2>/dev/null; then
     # Include Drush bash customizations.
@@ -280,7 +276,6 @@ enable_drush_customizations
 # ------------------------------------------------------------------------------
 # node.js & npm
 # ------------------------------------------------------------------------------
-
 enable_npm_customizations () {
   if hash npm 2>/dev/null; then
     # Include npm completion.
@@ -293,13 +288,18 @@ enable_npm_customizations
 
 
 # ------------------------------------------------------------------------------
-# Vagrant auto complete
+# Vagrant
 # ------------------------------------------------------------------------------
 enable_vagrant_customizations () {
   if hash vagrant 2>/dev/null; then
     # Include vagrant completion.
     if [ -f "$BASHRC_LOCATION/vagrant/vagrant.completion.sh" ] ; then
       source "$BASHRC_LOCATION/vagrant/vagrant.completion.sh"
+    fi
+
+    # If the OS is Linux change the Vagrant dot file directory name.
+    if [[ "$(uname)" == 'Linux' ]]; then
+      export VAGRANT_DOTFILE_PATH=.vagrant-linux
     fi
   fi
 }
