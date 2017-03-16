@@ -138,7 +138,7 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:cd'
 # \w                  = working directory
 # $(__git_ps1 "(%s)") = use the 'git.prompt.sh' to check repository status
 # \n                  = break line
-# λ                   = just the 'λ' symbol
+# $                   = just the '$' symbol
 
 # Colors -----------------------------------------
 # \e[32m              = green   for dev
@@ -148,7 +148,7 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:cd'
 
 # FYI: On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
 
-PS1='\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\nλ '
+PS1='\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)") \e[0m\n$ '
 
 # Alternative method getting the branch.
 #
