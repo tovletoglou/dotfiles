@@ -9,8 +9,10 @@
 # ------------------------------------------------------------------------------
 # Source global definitions
 # ------------------------------------------------------------------------------
-if [ -f /etc/bashrc ]; then
-  . /etc/bashrc
+if [ "$TERM" != "xterm" ] ; then # Fix non 256 xterm
+  if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+  fi
 fi
 
 
