@@ -133,11 +133,11 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:cd'
 # ------------------------------------------------------------------------------
 
 # PS1 explained ----------------------------------
-# \e]0;\w\a              = add current path (working directory) to terminal's title (or tab) bar (TODO: check if it is working)
+# \e]0;\w\a              = add current path (working directory) to terminal's title (or tab) bar (tested on Windows/ConEmu & Terminator/Fedora)
 # \u                     = current user
-# @                      = just the '@' symbol, nothing fancy here
+# @                      = just the '@' symbol
 # \h                     = host
-# \w                     = working directory
+# \w                     = current path (working directory)
 # $(__git_ps1 "(%s)")'$' = use the 'git.prompt.sh' to check repository status
 # \n                     = break line
 # $                      = just the '$' symbol
@@ -150,7 +150,7 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:cd'
 
 # FYI: On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
 
-PS1='\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\n$ '
+PS1='\e]0;\w\a\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\n$ '
 
 # Alternative method getting the branch.
 #
