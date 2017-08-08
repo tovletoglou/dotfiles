@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Link the dot files from the project (current) directory to the user's home directory.
+
 [[ -n ${ZSH_VERSION-} ]] &&
   PROJECT_ROOT="$0" ||
   PROJECT_ROOT="$BASH_SOURCE"
