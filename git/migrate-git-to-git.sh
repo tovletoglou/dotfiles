@@ -17,7 +17,7 @@
 #     fi
 #
 # Function:
-#   migrate-git-to-git source-repo target-repo temporary-folder
+#   migrate-git-to-git [source-repo] [target-repo] [temporary-folder]
 #
 # Example:
 #   migrate-git-to-git git@github.com:USER_NAME/PROJECT_NAME.git git@github.com:NEW_USER_NAME/NEW_PROJECT_NAME.git
@@ -32,11 +32,11 @@
 
 function migrate-git-to-git {
   d=${3-'./gitmigrate_tmp'}
-  \git clone $1 $d
-  \git --git-dir $d/.git branch -a | \sed -n "/\\/HEAD /d; /\\/master$/d; /remotes/p;" | \xargs -L1 git --git-dir $d/.git checkout -t
-  \git --git-dir $d/.git pull --all
-  \git --git-dir $d/.git remote add newremote $2
-  \git --git-dir $d/.git push --all newremote
-  \git --git-dir $d/.git push --tags newremote
-  \rm -rf $d
+  command git clone "$1" "$d"
+  command git --git-dir "$d"/.git branch -a | command sed -n "/\\/HEAD /d; /\\/master$/d; /remotes/p;" | command xargs -L1 git --git-dir "$d"/.git checkout -t
+  command git --git-dir "$d"/.git pull --all
+  command git --git-dir "$d"/.git remote add newremote "$2"
+  command git --git-dir "$d"/.git push --all newremote
+  command git --git-dir "$d"/.git push --tags newremote
+  command rm -rf "$d"
 }
