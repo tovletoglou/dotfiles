@@ -20,8 +20,8 @@ fi
 # Define dotfiles location
 # ------------------------------------------------------------------------------
 if [ -f "$HOME/.bashrc" ]; then
-  BASHRC_FILE="$(readlink -f $HOME/.bashrc)"
-  BASHRC_LOCATION="$(dirname $BASHRC_FILE)"
+  BASHRC_FILE="$(readlink -f "$HOME"/.bashrc)"
+  BASHRC_LOCATION="$(dirname "$BASHRC_FILE")"
 fi
 
 # ------------------------------------------------------------------------------
@@ -148,9 +148,17 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:cd'
 # \e[31m              = red     for prod
 # \e[0m               = reset colors
 
+# Info -------------------------------------------
+# Make sure all escape sequences are enclosed in [..] to prevent line wrapping issues.
+# Problematic code:
+#   PS1='\e[36m\$ \e(B\e[m'
+# Correct code:
+#   PS1='\[\e[36m\]\$ \[\e(B\e[m\]'
+
+# Info for Windows -------------------------------
 # FYI: On bash for Windows x86_64-pc-msys you can not have $(function) and \n in the same quotes enclose.
 
-PS1='\e]0;\w\a\u@\h \e[33m\w \e[32m$(__git_ps1 "(%s)")'$'\e[0m\n$ '
+PS1='\[\e]\]0;\w\a\u@\h \[\e[33m\]\w \[\e[32m\]$(__git_ps1 "(%s)")'$'\[\e[0m\]\n$ '
 
 # Alternative method getting the branch.
 #
@@ -206,7 +214,7 @@ fi
 # ------------------------------------------------------------------------------
 enable_rvm_customizations () {
   if hash rvm 2>/dev/null; then
-    # Add RVM to PATH for scripting
+    # Add RVM to PATH
     if [ -s "$HOME/.rvm/bin" ] ; then
       export PATH="$PATH:$HOME/.rvm/bin"
     fi
@@ -215,7 +223,7 @@ enable_rvm_customizations () {
     # root install, if user install is not there.
     if [ -s "$HOME/.rvm/scripts/rvm" ] ; then
       . "$HOME/.rvm/scripts/rvm"
-      elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
+    elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
       . "/usr/local/rvm/scripts/rvm"
     fi
   fi
@@ -312,7 +320,7 @@ enable_vagrant_customizations
 # BLT
 # ------------------------------------------------------------------------------
 function blt() {
-  if [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
+  if [ "$(git rev-parse --show-cdup 2> /dev/null)" != "" ]; then
     GIT_ROOT=$(git rev-parse --show-cdup)
   else
     GIT_ROOT="."
@@ -333,21 +341,21 @@ function blt() {
 
 # 'last' command is not supported on Windows bash (MINGW32, MSYS2)
 if hash last 2>/dev/null; then
-  LAST_LOGIN=$(last -1 -R $USER | head -1 | cut -c 23-38)
+  LAST_LOGIN=$(last -1 -R "$USER" | head -1 | cut -c 23-38)
 else
   LAST_LOGIN=""
 fi
 
 # The $MSYSTEM variable exist only on Windows bash (MINGW32, MSYS2)
-if [ ! -z "$MSYSTEM" ]      ; then echo "System          "$MSYSTEM      ; fi
-if [ ! -z "$OSTYPE" ]       ; then echo "OS Type         "$OSTYPE       ; fi
-if [ ! -z "$HOSTNAME" ]     ; then echo "Host            "$HOSTNAME     ; fi
-if [ ! -z "$SHLVL" ]        ; then echo "Console level   "$SHLVL        ; fi
-if [ ! -z "$HOME" ]         ; then echo "Home path       "$HOME         ; fi
-if [ ! -z "$SHELL" ]        ; then echo "Shell           "$SHELL        ; fi
-if [ ! -z "$BASH_VERSION" ] ; then echo "Bash            "$BASH_VERSION ; fi
-if [ ! -z "$TERM" ]         ; then echo "Terminal        "$TERM         ; fi
-if [ ! -z "$LAST_LOGIN" ]   ; then echo "Last login time "$LAST_LOGIN   ; fi
+if [ ! -z "$MSYSTEM" ]      ; then echo "System          $MSYSTEM"      ; fi
+if [ ! -z "$OSTYPE" ]       ; then echo "OS Type         $OSTYPE"       ; fi
+if [ ! -z "$HOSTNAME" ]     ; then echo "Host            $HOSTNAME"     ; fi
+if [ ! -z "$SHLVL" ]        ; then echo "Console level   $SHLVL"        ; fi
+if [ ! -z "$HOME" ]         ; then echo "Home path       $HOME"         ; fi
+if [ ! -z "$SHELL" ]        ; then echo "Shell           $SHELL"        ; fi
+if [ ! -z "$BASH_VERSION" ] ; then echo "Bash            $BASH_VERSION" ; fi
+if [ ! -z "$TERM" ]         ; then echo "Terminal        $TERM"         ; fi
+if [ ! -z "$LAST_LOGIN" ]   ; then echo "Last login time $LAST_LOGIN"   ; fi
 
 # If you want to print all the variables for the open session:
 # printenv
